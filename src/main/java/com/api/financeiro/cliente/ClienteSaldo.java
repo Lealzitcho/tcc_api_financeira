@@ -10,7 +10,7 @@ public class ClienteSaldo {
     private String categoriaSaldo;
     private String descricaoSaldo;
     private Date dataRecebimento;
-    private Double saldoOuExtra;
+    private Float saldoOuExtra;
     private Boolean entrada;
 
     @Id
@@ -53,11 +53,11 @@ public class ClienteSaldo {
     }
 
     @Column(name="SALDO_EXTRA")
-    public Double getSaldoOuExtra(){
+    public Float getSaldoOuExtra(){
         return saldoOuExtra;
     }
 
-    public void setSaldoOuExtra(Double saldoOuExtra) {
+    public void setSaldoOuExtra(Float saldoOuExtra) {
         this.saldoOuExtra = saldoOuExtra;
     }
 

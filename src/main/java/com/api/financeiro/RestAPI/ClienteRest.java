@@ -14,8 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ClienteRest {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    @Autowired private ClienteRepository clienteRepository;
 
 
     @RequestMapping(value="/produtos", method = RequestMethod.GET)
@@ -29,10 +28,10 @@ public class ClienteRest {
     @RequestMapping(value="/entrada", method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<ClienteSaldo> cadastrar(@RequestBody ClienteSaldo cliente){
 
+        ClienteSaldo entrada = ClienteService.salvarEntrada(cliente);
+        ClienteSaldo user = clienteRepository.save(entrada);
 
-        ClienteService.salvarEntrada(cliente);
-
-        return new ResponseEntity<ClienteSaldo>(cliente, HttpStatus.CREATED);
+        return new ResponseEntity<ClienteSaldo>(user, HttpStatus.CREATED);
 
     }
 
