@@ -26,7 +26,7 @@ public class ClienteRest {
     }
 
     @RequestMapping(value="/entrada", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<ClienteSaldo> cadastrar(@RequestBody ClienteSaldo cliente){
+    public @ResponseBody ResponseEntity<ClienteSaldo> entrada(@RequestBody ClienteSaldo cliente){
 
         ClienteSaldo entrada = ClienteService.salvarEntrada(cliente);
         ClienteSaldo user = clienteRepository.save(entrada);
