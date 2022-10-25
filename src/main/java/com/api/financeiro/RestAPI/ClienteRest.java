@@ -17,22 +17,29 @@ public class ClienteRest {
     @Autowired private ClienteRepository clienteRepository;
 
 
-    @RequestMapping(value="/produtos", method = RequestMethod.GET)
+    @RequestMapping(value="/listar", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity<List<ClienteSaldo>> listar() {
 
-        List<ClienteSaldo> user = clienteRepository.findAll();
+        List<ClienteSaldo> listar = clienteRepository.findAll();
 
-        return new ResponseEntity<List<ClienteSaldo>>(user, HttpStatus.OK);
+        return new ResponseEntity<List<ClienteSaldo>>(listar, HttpStatus.OK);
     }
 
     @RequestMapping(value="/entrada", method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<ClienteSaldo> entrada(@RequestBody ClienteSaldo cliente){
 
         ClienteSaldo entrada = ClienteService.salvarEntrada(cliente);
-        ClienteSaldo user = clienteRepository.save(entrada);
+        ClienteSaldo save = clienteRepository.save(entrada);
 
-        return new ResponseEntity<ClienteSaldo>(user, HttpStatus.CREATED);
+        return new ResponseEntity<ClienteSaldo>(save, HttpStatus.CREATED);
 
     }
 
+    @RequestMapping(value = "/deletar", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity<String> deletar(@RequestParam Long id){
+
+        clienteRepository.deleteById(id);
+
+        return new ResponseEntity<String>("Deletado com sucesso", HttpStatus.OK);
+    }
 }
