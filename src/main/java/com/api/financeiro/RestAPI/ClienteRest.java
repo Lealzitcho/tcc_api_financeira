@@ -2,6 +2,7 @@ package com.api.financeiro.RestAPI;
 
 import com.api.financeiro.cliente.ClienteSaldo;
 import com.api.financeiro.repository.ClienteRepository;
+import com.api.financeiro.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,13 @@ public class ClienteRest {
         return new ResponseEntity<List<ClienteSaldo>>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/salvar", method = RequestMethod.POST)
+    @RequestMapping(value="/entrada", method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<ClienteSaldo> cadastrar(@RequestBody ClienteSaldo cliente){
 
-        ClienteSaldo user = clienteRepository.save(cliente);
 
-        return new ResponseEntity<ClienteSaldo>(user, HttpStatus.CREATED);
+        ClienteService.salvarEntrada(cliente);
+
+        return new ResponseEntity<ClienteSaldo>(cliente, HttpStatus.CREATED);
 
     }
 

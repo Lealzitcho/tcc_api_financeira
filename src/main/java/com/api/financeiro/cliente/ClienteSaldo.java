@@ -11,6 +11,7 @@ public class ClienteSaldo {
     private String descricaoSaldo;
     private Date dataRecebimento;
     private Double saldoOuExtra;
+    private Boolean entrada;
 
     @Id
     @Column(name="ID", unique=true, nullable=false)
@@ -58,6 +59,15 @@ public class ClienteSaldo {
 
     public void setSaldoOuExtra(Double saldoOuExtra) {
         this.saldoOuExtra = saldoOuExtra;
+    }
+
+    @Column(name="ENTRADA")
+    public Boolean getEntrada(){
+        return entrada;
+    }
+
+    public void setEntrada(Boolean entrada) {
+        this.entrada = entrada;
     }
 }
 

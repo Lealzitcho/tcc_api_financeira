@@ -6,3 +6,5 @@ CREATE TABLE cliente (
                          saldo_extra integer,
                          CONSTRAINT cliente_pk PRIMARY KEY (id)
 );
+
+alter table cliente add column entrada boolean;
