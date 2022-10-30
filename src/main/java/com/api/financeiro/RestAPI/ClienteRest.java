@@ -36,10 +36,20 @@ public class ClienteRest {
     }
 
     @RequestMapping(value = "/deletar", method = RequestMethod.DELETE)
-    public @ResponseBody ResponseEntity<String> deletar(@RequestParam Long id){
+    public @ResponseBody ResponseEntity<String> deletar(@RequestBody ClienteSaldo cliente){
 
+        Long id = cliente.getId();
         clienteRepository.deleteById(id);
 
         return new ResponseEntity<String>("Deletado com sucesso", HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/atualizar", method = RequestMethod.PUT)
+    public @ResponseBody ResponseEntity<ClienteSaldo> atualizar(@RequestBody ClienteSaldo cliente){
+
+        ClienteSaldo atualizar = clienteRepository.save(cliente);
+
+        return new ResponseEntity<ClienteSaldo>(atualizar, HttpStatus.ACCEPTED);
+
     }
 }
