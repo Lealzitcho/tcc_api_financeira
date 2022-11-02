@@ -10,6 +10,7 @@ public class ClienteSaldo {
     private String categoriaSaldo;
     private String descricaoSaldo;
     private Date dataRecebimento;
+    private Date dataCadastro;
     private Float saldoOuExtra;
     private Boolean entrada;
 
@@ -50,6 +51,16 @@ public class ClienteSaldo {
 
     public void setDataRecebimento(Date dataRecebimento) {
         this.dataRecebimento = dataRecebimento;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DATA_CADASTRO")
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     @Column(name="SALDO_EXTRA")

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -45,11 +46,25 @@ public class ClienteRest {
     }
 
     @RequestMapping(value="/atualizar", method = RequestMethod.PUT)
-    public @ResponseBody ResponseEntity<ClienteSaldo> atualizar(@RequestBody ClienteSaldo cliente){
+    public @ResponseBody ResponseEntity<?> atualizar(@RequestBody ClienteSaldo cliente){
 
-        ClienteSaldo atualizar = clienteRepository.save(cliente);
+        if(cliente.getId() == null){
+            return new ResponseEntity<String>("Favor informar ID para Atualizar", HttpStatus.OK);
+        }
+
+        ClienteSaldo atualizar = clienteRepository.saveAndFlush(cliente);
 
         return new ResponseEntity<ClienteSaldo>(atualizar, HttpStatus.ACCEPTED);
+    }
 
+    @RequestMapping(value="/filter", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity<List<ClienteSaldo>> filter(@RequestBody ClienteSaldo cliente) {
+
+        Date inicio = cliente.getDataRecebimento();
+        Date fim = cliente.getDataCadastro();
+
+        List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetween(inicio, fim);
+
+        return new ResponseEntity<List<ClienteSaldo>>(listar, HttpStatus.OK);
     }
 }

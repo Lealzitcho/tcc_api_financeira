@@ -18,6 +18,7 @@ public class ClienteService {
         clienteSaldo.setCategoriaSaldo(categoriaGasto);
         clienteSaldo.setDescricaoSaldo(descricaoGasto);
         clienteSaldo.setDataRecebimento(dataRecebimento);
+        clienteSaldo.setDataCadastro(new Date());
         clienteSaldo.setSaldoOuExtra(saldo);
         clienteSaldo.setEntrada(true);
 
