@@ -1,6 +1,7 @@
 package com.api.financeiro.RestAPI;
 
 import com.api.financeiro.cliente.ClienteSaldo;
+import com.api.financeiro.cliente.RestData;
 import com.api.financeiro.repository.ClienteRepository;
 import com.api.financeiro.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,10 @@ public class ClienteRest {
     }
 
     @RequestMapping(value="/filter", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<List<ClienteSaldo>> filter(@RequestBody ClienteSaldo cliente) {
+    public @ResponseBody ResponseEntity<List<ClienteSaldo>> filter(@RequestBody RestData cliente) {
 
-        Date inicio = cliente.getDataRecebimento();
-        Date fim = cliente.getDataCadastro();
+        Date inicio = cliente.getInicio();
+        Date fim = cliente.getFim();
 
         List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetween(inicio, fim);
 
