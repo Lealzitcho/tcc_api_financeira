@@ -1,5 +1,6 @@
 package com.api.financeiro.RestAPI;
 
+import com.api.financeiro.cliente.ClienteFinanceiro;
 import com.api.financeiro.cliente.ClienteSaldo;
 import com.api.financeiro.cliente.RestData;
 import com.api.financeiro.repository.ClienteRepository;
@@ -67,5 +68,18 @@ public class ClienteRest {
         List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetween(inicio, fim);
 
         return new ResponseEntity<List<ClienteSaldo>>(listar, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/relatorio", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity<ClienteFinanceiro> relatorio(@RequestBody RestData cliente) {
+
+        Date inicio = cliente.getInicio();
+        Date fim = cliente.getFim();
+
+        List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetween(inicio, fim);
+        ClienteFinanceiro relatorio = ClienteService.financeiro(listar);
+
+
+        return new ResponseEntity<ClienteFinanceiro>(relatorio, HttpStatus.OK);
     }
 }
