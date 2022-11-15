@@ -41,6 +41,16 @@ public class ClienteRest {
 
     }
 
+    @RequestMapping(value="/saida", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<ClienteSaldo> saida(@RequestBody ClienteSaldo cliente){
+
+        ClienteSaldo entrada = ClienteService.salvarSaida(cliente);
+        ClienteSaldo save = clienteRepository.save(entrada);
+
+        return new ResponseEntity<ClienteSaldo>(save, HttpStatus.CREATED);
+
+    }
+
     @RequestMapping(value = "/deletar", method = RequestMethod.DELETE)
     public @ResponseBody ResponseEntity<String> deletar(@RequestBody ClienteSaldo cliente){
 
@@ -97,6 +107,20 @@ public class ClienteRest {
         String tipoCategoria = categoria.get(0);
         ClienteRelatorio relatorio = ClienteService.relatorio(listar, tipoCategoria);
 
+
+        return new ResponseEntity<ClienteRelatorio>(relatorio, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/relatorioSaida", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity<ClienteRelatorio> relatorioSaida(@RequestBody RestData data) {
+
+        Date inicio = data.getInicio();
+        Date fim = data.getFim();
+
+        List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetween(inicio, fim);
+        List<String> categoria = clienteCustomRepository.findSaida(inicio, fim);
+        String tipoCategoria = categoria.get(0);
+        ClienteRelatorio relatorio = ClienteService.relatorioSaida(listar, tipoCategoria);
 
         return new ResponseEntity<ClienteRelatorio>(relatorio, HttpStatus.OK);
     }
