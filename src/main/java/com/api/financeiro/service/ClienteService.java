@@ -1,6 +1,7 @@
 package com.api.financeiro.service;
 
 import com.api.financeiro.cliente.ClienteFinanceiro;
+import com.api.financeiro.cliente.ClienteRelatorio;
 import com.api.financeiro.cliente.ClienteSaldo;
 
 import java.util.Date;
@@ -47,5 +48,27 @@ public class ClienteService {
         clienteFinanceiro.setClienteEntrada(entrada);
 
         return clienteFinanceiro;
+    }
+
+    public static ClienteRelatorio relatorio(List<ClienteSaldo> listar, String categoria){
+
+        float entrada = 0;
+
+        ClienteRelatorio clienteRelatorio = new ClienteRelatorio();
+
+        for(ClienteSaldo cliente : listar){
+
+            Boolean tipoEntrada = cliente.getEntrada();
+            if(tipoEntrada){
+                Float saldo = cliente.getSaldoOuExtra();
+                entrada += saldo;
+            }
+
+        }
+
+        clienteRelatorio.setValor(entrada);
+        clienteRelatorio.setDescricao(categoria);
+
+        return clienteRelatorio;
     }
 }
