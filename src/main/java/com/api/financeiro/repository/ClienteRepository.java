@@ -10,4 +10,9 @@ import java.util.List;
 public interface ClienteRepository extends JpaRepository<ClienteSaldo, Long> {
 
     List<ClienteSaldo> findByDataRecebimentoBetween(Date inicio, Date Fim);
+
+    List<ClienteSaldo> findByDataRecebimentoBetweenAndEntradaTrue(Date inicio, Date Fim);
+
+    List<ClienteSaldo> findByDataRecebimentoBetweenAndEntradaFalse(Date inicio, Date Fim);
+
 }

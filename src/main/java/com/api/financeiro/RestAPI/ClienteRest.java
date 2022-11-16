@@ -102,7 +102,7 @@ public class ClienteRest {
         Date inicio = data.getInicio();
         Date fim = data.getFim();
 
-        List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetween(inicio, fim);
+        List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetweenAndEntradaTrue(inicio, fim);
         List<String> categoria = clienteCustomRepository.find(inicio, fim);
         String tipoCategoria = categoria.get(0);
         ClienteRelatorio relatorio = ClienteService.relatorio(listar, tipoCategoria);
@@ -117,7 +117,7 @@ public class ClienteRest {
         Date inicio = data.getInicio();
         Date fim = data.getFim();
 
-        List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetween(inicio, fim);
+        List<ClienteSaldo> listar = clienteRepository.findByDataRecebimentoBetweenAndEntradaFalse(inicio, fim);
         List<String> categoria = clienteCustomRepository.findSaida(inicio, fim);
         String tipoCategoria = categoria.get(0);
         ClienteRelatorio relatorio = ClienteService.relatorioSaida(listar, tipoCategoria);

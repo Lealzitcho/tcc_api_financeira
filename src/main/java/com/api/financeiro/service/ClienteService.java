@@ -100,21 +100,21 @@ public class ClienteService {
 
     public static ClienteRelatorio relatorioSaida(List<ClienteSaldo> listar, String categoria){
 
-        float entrada = 0;
+        float saida = 0;
 
         ClienteRelatorio clienteRelatorio = new ClienteRelatorio();
 
         for(ClienteSaldo cliente : listar){
 
             Boolean tipoEntrada = cliente.getEntrada();
-            if(tipoEntrada){
+            if(tipoEntrada == false){
                 Float saldo = cliente.getSaldoOuExtra();
-                entrada += saldo;
+                saida += saldo;
             }
 
         }
 
-        clienteRelatorio.setValor(entrada);
+        clienteRelatorio.setValor(saida);
         clienteRelatorio.setDescricao(categoria);
 
         return clienteRelatorio;
